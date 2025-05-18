@@ -96,7 +96,7 @@ export default function GameScreen({ userNumber, onGameOver }) {
 			</Card>
 			<Card
 				title='Guesses Log'
-				style={{ backgroundColor: '#333' }}
+				style={{ backgroundColor: '#333', flex: 1, padding: 16 }}
 			>
 				<FlatList
 					data={guesses}
