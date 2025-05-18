@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, View, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import NumberContainer from '../components/game/NumberContainer';
@@ -26,16 +26,22 @@ let minBoundary = 1,
 export default function GameScreen({ userNumber, onGameOver }) {
 	const initialGuess = generateRandomBetween(1, 100, userNumber);
 	const [currentGuess, setCurrentGuess] = useState(initialGuess);
+	const [guesses, setGuesses] = useState([initialGuess]);
 
 	useEffect(() => {
 		if (currentGuess === userNumber) {
 			onGameOver();
 
-			Alert.alert('You won!', 'Congratulations!', [
-				{ text: 'Play again', style: 'cancel' },
-			]);
+			// Alert.alert('You won!', 'Congratulations!', [
+			// 	{ text: 'Play again', style: 'cancel' },
+			// ]);
 		}
 	}, [currentGuess, userNumber, onGameOver]);
+
+	useEffect(() => {
+		minBoundary = 1;
+		maxBoundary = 100;
+	}, []);
 
 	function nextGuessHandler(direction) {
 		// honesty check
@@ -58,6 +64,7 @@ export default function GameScreen({ userNumber, onGameOver }) {
 
 		const newRndNum = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
 		setCurrentGuess(newRndNum);
+		setGuesses(prevGuesses => [newRndNum, ...prevGuesses]);
 	}
 
 	return (
@@ -87,7 +94,23 @@ export default function GameScreen({ userNumber, onGameOver }) {
 					</View>
 				</View>
 			</Card>
-			{/* <View>Log Rounds</View> */}
+			<Card
+				title='Guesses Log'
+				style={{ backgroundColor: '#333' }}
+			>
+				<FlatList
+					data={guesses}
+					keyExtractor={item => item}
+					renderItem={({ item, index }) => {
+						return (
+							<Text style={styles.listItemText}>
+								{`Guess #${guesses.length - index} : `}
+								{item}
+							</Text>
+						);
+					}}
+				/>
+			</Card>
 		</View>
 	);
 }
@@ -102,5 +125,9 @@ const styles = StyleSheet.create({
 
 	instructionsText: {
 		marginBottom: 24,
+	},
+
+	listItemText: {
+		color: 'white',
 	},
 });

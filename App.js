@@ -14,6 +14,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
 	const [userNumber, setUserNumber] = useState();
 	const [gameIsOver, setGameIsOver] = useState(false);
+	const [numberOfGuesses, setNumberOfGuesses] = useState(0);
 
 	const [loaded, error] = useFonts({
 		'open-sans': require('./assets/fonts/open-sans.regular.ttf'),
@@ -23,7 +24,6 @@ export default function App() {
 	useEffect(() => {
 		if (loaded) {
 			SplashScreen.hideAsync();
-			console.log('Fonts loaded!');
 		}
 
 		if (error) {
@@ -32,8 +32,6 @@ export default function App() {
 	}, [loaded, error]);
 
 	if (!loaded && !error) {
-		console.warn('Fonts not loaded yet');
-
 		return null;
 	}
 
@@ -43,6 +41,12 @@ export default function App() {
 
 	function gameOverHandler() {
 		setGameIsOver(true);
+	}
+
+	function gameRestartHandler() {
+		setUserNumber(null);
+		setGameIsOver(false);
+		setNumberOfGuesses(0);
 	}
 
 	let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
@@ -57,8 +61,13 @@ export default function App() {
 	}
 
 	if (gameIsOver) {
-		console.log('Game is over');
-		screen = <GameOverScreen />;
+		screen = (
+			<GameOverScreen
+				numberOfGuesses={numberOfGuesses}
+				userNumber={userNumber}
+				onGameRestart={gameRestartHandler}
+			/>
+		);
 	}
 
 	return (
