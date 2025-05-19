@@ -39,8 +39,9 @@ export default function App() {
 		setUserNumber(pickedNumber);
 	}
 
-	function gameOverHandler() {
+	function gameOverHandler(numOfGuesses) {
 		setGameIsOver(true);
+		setNumberOfGuesses(numOfGuesses);
 	}
 
 	function gameRestartHandler() {
