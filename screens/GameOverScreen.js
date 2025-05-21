@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
 	},
 
 	imageContainer: {
-		width: 300,
-		height: 300,
+		width: windowDimensions().width < 380 ? 150 : 300,
+		height: windowDimensions().width < 380 ? 150 : 300,
 		borderRadius: 500,
 		borderWidth: 3,
 		borderColor: COLORS.primary800,
