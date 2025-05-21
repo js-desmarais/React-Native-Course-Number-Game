@@ -31,10 +31,6 @@ export default function GameScreen({ userNumber, onGameOver }) {
 	useEffect(() => {
 		if (currentGuess === userNumber) {
 			onGameOver();
-
-			// Alert.alert('You won!', 'Congratulations!', [
-			// 	{ text: 'Play again', style: 'cancel' },
-			// ]);
 		}
 	}, [currentGuess, userNumber, onGameOver]);
 
