@@ -7,7 +7,7 @@ export const commonStyles = StyleSheet.create({
 		alignItems: 'center',
 	},
 
-	buttonContainer: {
+	flexOne: {
 		flex: 1,
 	},
 });

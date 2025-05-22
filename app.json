@@ -3,11 +3,10 @@
 		"name": "number-game",
 		"slug": "number-game",
 		"version": "1.0.0",
-		"orientation": "portrait",
+		"orientation": "default",
 		"userInterfaceStyle": "light",
 		"newArchEnabled": true,
 		"splash": {
-			"image": "./assets/splash-icon.png",
 			"resizeMode": "contain",
 			"backgroundColor": "#ffffff"
 		},
@@ -16,7 +15,6 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
 			"edgeToEdgeEnabled": true
